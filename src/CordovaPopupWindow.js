@@ -28,7 +28,7 @@ export class CordovaPopupWindow {
         })
     }
     
-    navigate(params) {
+    async navigate(params) {
         if (!params || !params.url) {
             this._error("No url provided");
         } else {
@@ -41,10 +41,15 @@ export class CordovaPopupWindow {
                 return this._error("InAppBrowser plugin not found")
             }
 
-            let safari = cordova.SafariViewController;
-            console.log("SAFARI", safari);
+            let safariAvailable = await cordova.SafariViewController.isAvailable();
 
-            this._popup = cordova.InAppBrowser.open(params.url, this.target, this.features);
+            if(safariAvailable)
+                this._popup = cordova.SafariViewController.show({
+                    url: params.url
+                });
+            else
+                this._popup = cordova.InAppBrowser.open(params.url, this.target, this.features);
+
             if (this._popup) {
                 Log.debug("CordovaPopupWindow.navigate: popup successfully created");
                 
