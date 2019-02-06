@@ -45,7 +45,11 @@ export class CordovaPopupWindow {
 
             if(safariAvailable)
                 this._popup = cordova.SafariViewController.show({
-                    url: params.url
+                    url: params.url,
+                    animated: false,
+                    transition: 'curl',
+                    enterReaderModeIfAvailable: true,
+                    tintColor: '#ff0000'
                 });
             else
                 this._popup = cordova.InAppBrowser.open(params.url, this.target, this.features);
