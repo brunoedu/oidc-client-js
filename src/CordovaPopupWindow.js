@@ -18,11 +18,12 @@ export class CordovaPopupWindow {
         this.target = params.popupWindowTarget || DefaultPopupTarget;
         
         this.redirect_uri = params.startUrl;
+        console.log("AQUI POPUPNAVIGATOR");
         Log.debug("CordovaPopupWindow.ctor: redirect_uri: " + this.redirect_uri);
     }
 
     _isInAppBrowserInstalled(cordovaMetadata) {
-        return ["cordova-plugin-inappbrowser", "cordova-plugin-inappbrowser.inappbrowser", "org.apache.cordova.inappbrowser"].some(function (name) {
+        return ["cordova-plugin-safariviewcontroller", "cordova-plugin-inappbrowser", "cordova-plugin-inappbrowser.inappbrowser", "org.apache.cordova.inappbrowser"].some(function (name) {
             return cordovaMetadata.hasOwnProperty(name)
         })
     }
@@ -39,6 +40,10 @@ export class CordovaPopupWindow {
             if (this._isInAppBrowserInstalled(cordovaMetadata) === false) {
                 return this._error("InAppBrowser plugin not found")
             }
+
+            let safari = cordova.SafariViewController;
+            console.log("SAFARI", safari);
+
             this._popup = cordova.InAppBrowser.open(params.url, this.target, this.features);
             if (this._popup) {
                 Log.debug("CordovaPopupWindow.navigate: popup successfully created");
