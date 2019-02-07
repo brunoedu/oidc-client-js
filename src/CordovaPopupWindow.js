@@ -40,15 +40,15 @@ export class CordovaPopupWindow {
                 return this._error("InAppBrowser plugin not found")
             }
 
-            console.log("CORDOVA", JSON.stringify(cordova));
+            console.log("CORDOVA", JSON.stringify(window.cordova));
             console.log("CORDOVA METADATA", JSON.stringify(cordovaMetadata));
-            console.log("CORDOVA", JSON.stringify(cordova.plugins));
-            console.log("SAFARI", JSON.stringify(cordova.plugins.SafariViewController));
+            console.log("CORDOVA PLUGINS", JSON.stringify(window.cordova.plugins));
+            console.log("SAFARI", JSON.stringify(window.cordova.plugins.SafariViewController));
 
-            let safariAvailable = await cordova.plugins.SafariViewController.isAvailable();
+            let safariAvailable = await window.cordova.plugins.SafariViewController.isAvailable();
 
             if(safariAvailable)
-                this._popup = cordova.plugins.SafariViewController.show({
+                this._popup = window.cordova.plugins.SafariViewController.show({
                     url: params.url,
                     animated: false,
                     transition: 'curl',
