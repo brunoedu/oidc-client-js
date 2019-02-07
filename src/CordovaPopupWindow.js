@@ -4,7 +4,7 @@
 import { Log } from './Log';
 
 const DefaultPopupFeatures = 'location=no,toolbar=no,zoom=no';
-const DefaultPopupTarget = "_blank";
+const DefaultPopupTarget = "_system";
 
 export class CordovaPopupWindow {
 
@@ -40,13 +40,14 @@ export class CordovaPopupWindow {
                 return this._error("InAppBrowser plugin not found")
             }
 
-            console.log("WINDOW", JSON.stringify(window));
+            console.log("SAFARI 3", JSON.stringify(window.cordova.SafariViewController));
+            console.log("SAFARI 2", JSON.stringify(SafariViewController));
             console.log("SAFARI", JSON.stringify(window.SafariViewController));
 
-            let safariAvailable = await window.SafariViewController.isAvailable();
+            let safariAvailable = await SafariViewController.isAvailable();
 
             if(safariAvailable)
-                this._popup =  window.SafariViewController.show({
+                this._popup =  SafariViewController.show({
                     url: params.url,
                     animated: false,
                     transition: 'curl',
