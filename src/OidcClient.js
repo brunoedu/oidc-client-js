@@ -44,9 +44,10 @@ export class OidcClient {
         // have round tripped, but people were getting confused, so i added state (since that matches the spec)
         // and so now if data is not passed, but state is then state will be used
         data, state, prompt, display, max_age, ui_locales, id_token_hint, login_hint, acr_values,
-        resource, request, request_uri, response_mode, extraQueryParams } = {},
+        resource, request, request_uri, response_mode, extraQueryParams, externalLogin } = {},
         stateStore
     ) {
+        console.log("EXTERNAL LOGIN", externalLogin);
         Log.debug("OidcClient.createSigninRequest");
 
         let client_id = this._settings.client_id;
