@@ -22,7 +22,7 @@ export class CordovaPopupWindow {
     }
 
     _isInAppBrowserInstalled(cordovaMetadata) {
-        return ["cordova-plugin-safariviewcontroller", "cordova-plugin-inappbrowser", "cordova-plugin-inappbrowser.inappbrowser", "org.apache.cordova.inappbrowser"].some(function (name) {
+        return [/*"cordova-plugin-safariviewcontroller", */"cordova-plugin-inappbrowser", "cordova-plugin-inappbrowser.inappbrowser", "org.apache.cordova.inappbrowser"].some(function (name) {
             return cordovaMetadata.hasOwnProperty(name)
         })
     }
@@ -40,22 +40,24 @@ export class CordovaPopupWindow {
                 return this._error("InAppBrowser plugin not found")
             }
 
-            console.log("SAFARI 3", JSON.stringify(window.cordova.SafariViewController));
-            console.log("SAFARI 2", JSON.stringify(SafariViewController));
-            console.log("SAFARI", JSON.stringify(window.SafariViewController));
+            // console.log("SAFARI 3", JSON.stringify(window.cordova.SafariViewController));
+            // console.log("SAFARI 2", JSON.stringify(SafariViewController));
+            // console.log("SAFARI", JSON.stringify(window.SafariViewController));
 
-            let safariAvailable = await SafariViewController.isAvailable();
+            // let safariAvailable = await SafariViewController.isAvailable();
 
-            if(safariAvailable)
-                this._popup =  SafariViewController.show({
-                    url: params.url,
-                    animated: false,
-                    transition: 'curl',
-                    enterReaderModeIfAvailable: true,
-                    tintColor: '#ff0000'
-                });
-            else
-                this._popup = cordova.InAppBrowser.open(params.url, this.target, this.features);
+            // if(safariAvailable)
+            //     this._popup =  SafariViewController.show({
+            //         url: params.url,
+            //         animated: false,
+            //         transition: 'curl',
+            //         enterReaderModeIfAvailable: true,
+            //         tintColor: '#ff0000'
+            //     });
+            // else
+            //     this._popup = cordova.InAppBrowser.open(params.url, this.target, this.features);
+            
+            this._popup = cordova.InAppBrowser.open(params.url, this.target, this.features);
 
             if (this._popup) {
                 Log.debug("CordovaPopupWindow.navigate: popup successfully created");
@@ -76,8 +78,7 @@ export class CordovaPopupWindow {
         return this._promise;
     }
 
-    _loadStartCallback(event) { 
-        window.open(event.url, '_system');        
+    _loadStartCallback(event) {       
         if (event.url.indexOf(this.redirect_uri) === 0) {
             this._success({ url: event.url });
         }    
