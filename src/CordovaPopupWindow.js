@@ -18,7 +18,6 @@ export class CordovaPopupWindow {
         this.target = params.popupWindowTarget || DefaultPopupTarget;
         
         this.redirect_uri = params.startUrl;
-        console.log("AQUI POPUPNAVIGATOR");
         Log.debug("CordovaPopupWindow.ctor: redirect_uri: " + this.redirect_uri);
     }
 
@@ -40,6 +39,8 @@ export class CordovaPopupWindow {
             if (this._isInAppBrowserInstalled(cordovaMetadata) === false) {
                 return this._error("InAppBrowser plugin not found")
             }
+
+            console.log("SAFARI", cordova.SafariViewController);
 
             let safariAvailable = await cordova.SafariViewController.isAvailable();
 
