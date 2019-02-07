@@ -43,13 +43,12 @@ export class CordovaPopupWindow {
             console.log("CORDOVA", JSON.stringify(window.cordova));
             console.log("CORDOVA METADATA", JSON.stringify(cordovaMetadata));
             console.log("CORDOVA PLUGINS", JSON.stringify(window.cordova.plugins));
-            console.log("SAFARI", JSON.stringify(window.cordova.plugins.SafariViewController));
-            console.log("SAFARI 2", JSON.stringify(SafariViewController));
+            console.log("SAFARI", JSON.stringify(window.SafariViewController));
 
-            let safariAvailable = await SafariViewController.isAvailable();
+            let safariAvailable = await  window.SafariViewController.isAvailable();
 
             if(safariAvailable)
-                this._popup = SafariViewController.show({
+                this._popup =  window.SafariViewController.show({
                     url: params.url,
                     animated: false,
                     transition: 'curl',
