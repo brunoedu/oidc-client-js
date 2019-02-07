@@ -47,7 +47,6 @@ export class OidcClient {
         resource, request, request_uri, response_mode, extraQueryParams, externalLogin } = {},
         stateStore
     ) {
-        console.log("EXTERNAL LOGIN", externalLogin);
         Log.debug("OidcClient.createSigninRequest");
 
         let client_id = this._settings.client_id;
@@ -82,6 +81,7 @@ export class OidcClient {
                 scope,
                 data: data || state,
                 authority,
+                externalLogin,
                 prompt, display, max_age, ui_locales, id_token_hint, login_hint, acr_values,
                 resource, request, request_uri, extraQueryParams, response_mode
             });

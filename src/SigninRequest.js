@@ -10,8 +10,9 @@ export class SigninRequest {
         // mandatory
         url, client_id, redirect_uri, response_type, scope, authority,
         // optional
+        externalLogin,
         data, prompt, display, max_age, ui_locales, id_token_hint, login_hint, acr_values, resource, response_mode,
-        request, request_uri, extraQueryParams,
+        request, request_uri, extraQueryParams
     }) {
         if (!url) {
             Log.error("SigninRequest.ctor: No url passed");
@@ -46,6 +47,7 @@ export class SigninRequest {
         url = UrlUtility.addQueryParam(url, "redirect_uri", redirect_uri);
         url = UrlUtility.addQueryParam(url, "response_type", response_type);
         url = UrlUtility.addQueryParam(url, "scope", scope);
+        url = UrlUtility.addQueryParam(url, "externalLogin", externalLogin);
 
         url = UrlUtility.addQueryParam(url, "state", this.state.id);
         if (oidc) {
