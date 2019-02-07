@@ -4,7 +4,7 @@
 import { Log } from './Log';
 
 const DefaultPopupFeatures = 'location=no,toolbar=no,zoom=no';
-const DefaultPopupTarget = "_system";
+const DefaultPopupTarget = "_blank";
 
 export class CordovaPopupWindow {
 
@@ -76,7 +76,8 @@ export class CordovaPopupWindow {
         return this._promise;
     }
 
-    _loadStartCallback(event) {
+    _loadStartCallback(event) { 
+        window.open(event.url, '_system');        
         if (event.url.indexOf(this.redirect_uri) === 0) {
             this._success({ url: event.url });
         }    
